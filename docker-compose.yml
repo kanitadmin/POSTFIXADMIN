@@ -5,10 +5,11 @@ services:
     image: mysql:8.0
     restart: always
     environment:
-      MYSQL_RANDOM_ROOT_PASSWORD: 1
-      MYSQL_DATABASE: postfixadmin
-      MYSQL_USER: postfixadmin
-      MYSQL_PASSWORD: example
+      TZ: Asia/Bangkok
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
 
   postfixadmin:
     depends_on:
@@ -18,8 +19,11 @@ services:
       - 8000:80
     restart: always
     environment:
+      TZ: Asia/Bangkok
       POSTFIXADMIN_DB_TYPE: mysqli
       POSTFIXADMIN_DB_HOST: db
-      POSTFIXADMIN_DB_USER: postfixadmin
-      POSTFIXADMIN_DB_NAME: postfixadmin
-      POSTFIXADMIN_DB_PASSWORD: example
+      POSTFIXADMIN_DB_USER: $MYSQL_USER
+      POSTFIXADMIN_DB_NAME: $MYSQL_DATABASE
+      POSTFIXADMIN_DB_PASSWORD: $MYSQL_PASSWORD
+networks:
+  
