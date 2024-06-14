@@ -4,6 +4,8 @@ services:
   db:
     image: mysql:8.0
     restart: always
+    volumes:
+      - db-data:/var/lib/mysql
     environment:
       TZ: Asia/Bangkok
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
@@ -18,6 +20,8 @@ services:
     ports:
       - 8000:80
     restart: always
+    volumes:
+      - postfixadmin:/var/www/html
     environment:
       TZ: Asia/Bangkok
       POSTFIXADMIN_DB_TYPE: mysqli
@@ -26,4 +30,10 @@ services:
       POSTFIXADMIN_DB_NAME: $MYSQL_DATABASE
       POSTFIXADMIN_DB_PASSWORD: $MYSQL_PASSWORD
 networks:
+  default:
+    name: postfixadmin
+volumes:
+  postfixadmin:
+  db-data:
+  db-config:
   
